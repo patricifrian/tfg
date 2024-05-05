@@ -1,0 +1,245 @@
+{
+    "nota_max": 10,
+    "requisitos": {
+      "carpetas": {
+        "id": 0,
+        "nombre": "Existencia de Carpetas",
+        "peso": 0.16667,
+        "subrequisitos": {
+          "subreq1": {
+            "nombre": "Interview Reports",
+            "peso": 0.1
+          },
+          "subreq2": {
+            "nombre": "Business Goals",
+            "peso": 0.1
+          },
+          "subreq3": {
+            "nombre": "Customer Needs",
+            "peso": 0.1
+          },
+          "subreq4": {
+            "nombre": "Features",
+            "peso": 0.1
+          },
+          "subreq5": {
+            "nombre": "Business Rules",
+            "peso": 0.1
+          },
+          "subreq6": {
+            "nombre": "Use Cases",
+            "peso": 0.1
+          },
+          "subreq7": {
+            "nombre": "Constraints",
+            "peso": 0.1
+          },
+          "subreq8": {
+            "nombre": "Functional Requirements",
+            "peso": 0.1
+          },
+          "subreq9": {
+            "nombre": "External Interfaces",
+            "peso": 0.1
+          },
+          "subreq10": {
+            "nombre": {
+              "opcion1": "Non-functional Requirements",
+              "opcion2": "Quality Attributes"
+            },
+            "peso": 0.1
+          }
+        }
+      },
+      "tipos": {
+        "id": 1,
+        "nombre": "Existencia de Tipos de Artefactos",
+        "peso": 0.16667,
+        "subrequisitos": {
+          "subreq1": {
+            "nombre": "Interview Report",
+            "peso": 0.08333
+          },
+          "subreq2": {
+            "nombre": "Business Goal",
+            "peso": 0.08333
+          },
+          "subreq3": {
+            "nombre": "Customer Need",
+            "peso": 0.08333
+          },
+          "subreq4": {
+            "nombre": "Feature",
+            "peso": 0.08333
+          },
+          "subreq5": {
+            "nombre": "Business Rule",
+            "peso": 0.08333
+          },
+          "subreq6": {
+            "nombre": "Use Case",
+            "peso": 0.08333
+          },
+          "subreq7": {
+            "nombre": "Constraint",
+            "peso": 0.08333
+          },
+          "subreq8": {
+            "nombre": "Functional Requirement",
+            "peso": 0.08333
+          },
+          "subreq9": {
+            "nombre": "External Interface",
+            "peso": 0.08333
+          },
+          "subreq10": {
+            "nombre": "Term",
+            "peso": 0.08333
+          },
+          "subreq11": {
+            "nombre": "Wireframe",
+            "peso": 0.08333
+          },
+          "subreq12": {
+            "nombre": "Scenario Evaluation",
+            "peso": 0.08333
+          }
+        }
+      },
+  
+      "organizacion": {
+        "id": 2,
+        "nombre": "Organizacion de Artefactos en Carpetas",
+        "peso": 0.16667,
+        "subrequisitos": {
+          "subreq1": {
+            "nombre": "Existencia de al menos un artefacto de tipo Interview Report en la carpeta Interview Reports",
+            "peso": 0.09091
+          },
+          "subreq2": {
+            "nombre": "Existencia de al menos un artefacto de tipo Business Goal en la carpeta Business Goals",
+            "peso": 0.09091
+          },
+          "subreq3": {
+            "nombre": "Existencia de al menos un artefacto de tipo Customer Need en la carpeta Customer Needs",
+            "peso": 0.09091
+          },
+          "subreq4": {
+            "nombre": "Existencia de al menos un artefacto de tipo Feature en la carpeta Features",
+            "peso": 0.09091
+          },
+          "subreq5": {
+            "nombre": "Existencia de al menos un artefacto de tipo Business Rule en la carpeta Business Rules",
+            "peso": 0.09091
+          },
+          "subreq6": {
+            "nombre": "Existencia de al menos un artefacto de tipo Use Case en la carpeta Use Cases",
+            "peso": 0.09091
+          },
+          "subreq7": {
+            "nombre": "Existencia de al menos un artefacto de tipo Constraint en la carpeta Constraints",
+            "peso": 0.09091
+          },
+          "subreq8": {
+            "nombre": "Existencia de al menos un artefacto de tipo Functional Requirement en la carpeta Functional Requirements",
+            "peso": 0.09091
+          },
+          "subreq9": {
+            "nombre": "Existencia de al menos un artefacto de tipo distinto a los indicados en la carpeta Non-functional Requirements o Quality Attributes",
+            "peso": 0.09091
+          },
+          "subreq10": {
+            "nombre": "Existencia de al menos un artefacto de tipo External Interface en la carpeta External Interfaces",
+            "peso": 0.09091
+          },
+          "subreq11": {
+            "nombre": "Existencia de al menos un artefacto de tipo Wireframe y de tipo Scenario Evaluation en la carpeta External Interfaces (o alguna de sus subcarpetas)",
+            "peso": 0.09091
+          }
+        }
+      },
+      "modulos": {
+        "id": 3,
+        "nombre": "Existencia de Modulos",
+        "peso": 0.16667,
+        "subrequisitos": {
+          "subreq1": {
+            "nombre": "Software Requirement Specification",
+            "peso": 0.5
+          },
+          "subreq2": {
+            "nombre": "Vision & Scope document",
+            "peso": 0.5
+          }
+        }
+      },
+      "trazabilidad": {
+        "id": 4,
+        "nombre": "Trazabilidad de Artefactos",
+        "peso": 0.16667,
+        "subrequisitos": {
+          "subreq1": {
+            "nombre": "Todos los artefactos de tipo Business Goal, Customer Need y Feature apuntan a un artefacto de tipo Interview Report",
+            "peso": 0.11111
+          },
+          "subreq2": {
+            "nombre": "Todos los artefactos de tipo Interview Report son apuntados por al menos un artefacto",
+            "peso": 0.11111
+          },
+          "subreq3": {
+            "nombre": "Todos los artefactos de tipo Use Case apuntan a un artefacto de tipo Feature",
+            "peso": 0.11111
+          },
+          "subreq4": {
+            "nombre": "Todos los artefactos de tipo Functional Requirement apuntan a un artefacto de tipo Use Case",
+            "peso": 0.11111
+          },
+          "subreq5": {
+            "nombre": "Todos los artefactos de tipo Business Rule apuntan un artefacto de otro tipo. Este segundo artefacto debe estar en alguna de las carpetas previamente definidas",
+            "peso": 0.11111
+          },
+          "subreq6": {
+            "nombre": "Todos los artefactos de tipo Scenario Evaluation apuntan unicamente a un artefacto de tipo Use Case",
+            "peso": 0.11111
+          },
+          "subreq7": {
+            "nombre": "Todos los artefactos de tipo Use Case apuntan al menos un artefacto de tipo Scenario Evaluation",
+            "peso": 0.11111
+          },
+          "subreq8": {
+            "nombre": "Todos los artefactos de tipo Scenario Evaluation apuntan al menos a un artefacto de tipo Wireframe",
+            "peso": 0.11111
+          },
+          "subreq9": {
+            "nombre": "Todos los artefactos de tipo Wireframe apuntan al menos a un artefacto de tipo Scenario Evaluation",
+            "peso": 0.11111
+          }
+        }
+      },
+      "opciones": {
+        "id": 5,
+        "nombre": "Opciones de Artefactos",
+        "peso": 0.16667,
+        "subrequisitos": {
+          "subreq1": {
+            "nombre": "Todos los artefactos de tipo Term tienen activada la opcion 'Use artifacts of this type as glossary terms'",
+            "peso": 1
+          }
+        }
+      },
+      "vista": {
+        "id": 6,
+        "nombre": "Existencia de Vista",
+        "peso": 0.16667,
+        "subrequisitos": {
+          "subreq1": {
+            "nombre": "Glossary",
+            "tipo": "Term",
+            "peso": 1
+          }
+        }
+      }
+      }
+    }
+  
+  

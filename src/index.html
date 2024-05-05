@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Proyectos IBM Doors</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Verificador de Proyectos IBM Doors</h1>
+    </header>
+    <main>
+        <button id="explainBtn">?</button>
+        <section id="loginSection">
+            <h2>Log in with your Jazz user ID</h2>
+            <label for="username">User ID (required):</label>
+            <br>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <label for="password">Password (required):</label>
+            <br>
+            <div id="passwordContainer">
+                <input type="password" id="password" name="password" required>
+                <button id="showPassBtn">Show</button>
+            </div>
+            <br>
+            <label for="projectUri">Project URI (required):</label>
+            <br>
+            <input type="text" id="projectUri" name="projectUri" required>
+            <br>
+            <p id="alert" style="color:red;"></p>
+            <button id="checkBtn">Comprobar</button>
+        </section>
+    </main>
+    <footer>
+        <p>2024 Verificador de Proyectos IBM Doors</p>
+    </footer>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
