@@ -2,7 +2,7 @@
 //'use strict';
 
 //Importacion de doors_lib.js
-import { login, logout, getCookies, hecho, jsonToObject, checkFolders, checkType, checkOrganization, checkModules, checkLinkTo, checkLinkAt, checkOptions, checkViews} from './doors_lib.js';
+import { login, logout, getCookies, hecho, jsonToObject, checkFolders, checkType, checkOrganization, checkModules, checkLinks, checkOptions, checkViews} from './doors_lib.js';
 
 // Declaracion de Variables Globales
 var notaMax;
@@ -129,10 +129,9 @@ async function checkReqs() {
         var artifactsOfType = await checkType();
         checkOrganization(artifactsInFolder, artifactsOfType);
         await checkModules();
-        //await checkLinkTo(artefacto);
-        //await checkLinkAt(artefacto),
-        //await checkOptions();
-        //await checkViews();
+        await checkLinks();
+        await checkOptions();
+        await checkViews();
     } catch (error) {
         alert.textContent = 'Se ha producido un error. Por favor, vuelva a la pantalla anterior y proceda nuevamente.';
     }    
