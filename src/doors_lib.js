@@ -160,37 +160,54 @@ async function checkType() {
 //Verificar la organización de artefactos en carpetas
 function checkOrganization(artifactsInFolder, artifactsOfType) {
     try {
-        var aux = 0;
+        var cont = 0;
         for (const subreq in dataJson.requisitos.organizacion.subrequisitos) {
             //Obtener id de la carpeta
             var idCarpeta = 0;
-            for (const aux in dataJson.requisitos.tipos.subrequisitos) {
-                if (dataJson.requisitos.carpetas.subrequisitos[aux].nombre === subreq.carpeta) {
-                    break;
+            // Si la carpeta tiene varias opciones de nombre
+            if (typeof subreq.carpeta === 'object') {
+                var found = false;
+                for (const carpeta in subreq.carpeta) {
+                    for (const aux in dataJson.requisitos.carpetas.subrequisitos) {
+                        if (aux.nombre === carpeta) {
+                            found = true;
+                            break;
+                        }
+                        idCarpeta++;
+                    }
+                    if(found === true){
+                        break;
+                    }
                 }
-                idCarpeta++;
+            }else{ // Si la carpeta solo puede tener un nombre
+                for (const aux in dataJson.requisitos.carpetas.subrequisitos) {
+                    if (aux.nombre === subreq.carpeta) {
+                        break;
+                    }
+                    idCarpeta++;
+                }
             }
             if (subreq.tipo === "undefined"){
-                // Si el tipo es "undefined", se verifica que los artefactos de la carpeta no se hayan definido previamente
+                // Si el tipo es "undefined", se verifica que los artefactos de la carpeta sean de tipos no definidos en el requisito de tipos
                 for (const aux in dataJson.requisitos.tipos.subrequisitos) {
                     for (let i = 0; i < artifactsInFolder[idCarpeta].length; i++) {
-                        var objectType = artifacts[idCarpeta][i].getElementsByTagName('attribute:objectType');
+                        var objectType = artifactsInFolder[idCarpeta][i].getElementsByTagName('attribute:objectType');
                         if (objectType[0].getAttribute("attribute:name") !== aux.tipo){
-                            hecho[dataJson.requisitos.organizacion.id][aux] = 1; //Marcar como hecho el subrequisito
+                            hecho[dataJson.requisitos.organizacion.id][cont] = 1; //Marcar como hecho el subrequisito
                         }else{
-                            hecho[dataJson.requisitos.organizacion.id][aux] = 0; //Marcar como NO hecho el subrequisito
+                            hecho[dataJson.requisitos.organizacion.id][cont] = 0; //Marcar como NO hecho el subrequisito
                             break;
                         }
                     }
                 }
             }else{
-                // Si la carpeta tiene varias opciones de nombre
+                // Si la carpeta tiene que tener varios tipos
                 if (typeof subreq.tipo === 'object') {
                     var idTipo = 0;
                     var artifactsOfTypes = [];
                     for (const option in subreq.tipo) {
                         for (const aux in dataJson.requisitos.tipos.subrequisitos) {
-                            if (dataJson.requisitos.tipos.subrequisitos[aux].nombre === subreq.tipo) {
+                            if (aux.nombre === option) {
                                 artifactsOfTypes.push(artifactsOfType[idTipo]);
                                 break;
                             }
@@ -198,25 +215,29 @@ function checkOrganization(artifactsInFolder, artifactsOfType) {
                         }
                     }
                     // Comparación de los arrays contenidos en artifactsOfType[idTipo] y artifactsInFolder[idCarpeta]
-                    if(artifactsInFolder[idCarpeta] === artifactsOfTypes){
-                        hecho[dataJson.requisitos.organizacion.id][aux] = 1; //Marcar como hecho el subrequisito
+                    artifactsInFolder[idCarpeta].sort();
+                    artifactsOfTypes.sort();
+                    if(artifactsInFolder[idCarpeta].toString() === artifactsOfTypes.toString()){
+                        hecho[dataJson.requisitos.organizacion.id][cont] = 1; //Marcar como hecho el subrequisito
                     }
-                }else{
+                }else{ // Si solo puede haber un tipo
                     //Obtener id del tipo
                     var idTipo = 0;
                     for (const aux in dataJson.requisitos.tipos.subrequisitos) {
-                        if (dataJson.requisitos.tipos.subrequisitos[aux].nombre === subreq.tipo) {
+                        if (aux.nombre === subreq.tipo) {
                             break;
                         }
                         idTipo++;
                     }
                     // Comparación de los arrays contenidos en artifactsOfType[idTipo] y artifactsInFolder[idCarpeta]
-                    if(artifactsInFolder[idCarpeta] === artifactsOfType[idTipo]){
-                        hecho[dataJson.requisitos.organizacion.id][aux] = 1; //Marcar como hecho el subrequisito
+                    artifactsInFolder[idCarpeta].sort();
+                    artifactsOfType[idTipo].sort();
+                    if(artifactsInFolder[idCarpeta].toString() === artifactsOfType[idTipo].toString()){
+                        hecho[dataJson.requisitos.organizacion.id][cont] = 1; //Marcar como hecho el subrequisito
                     }
                 }
             }
-            aux++;
+            cont++;
         }
     } catch (error) {
         throw new Error('Error al verificar la organizacion de artefactos: ', error);
@@ -243,18 +264,53 @@ async function checkModules() {
 }
 
 //Verificar existencia de trazabilidad
-async function checkLinks() {
+async function checkLinks(artifactsInFolder) {
     try {
-        const doc = await fetchDoors(URL_SERVER + "resources?projectURI=" + projectUri);
-        var artifacts = doc.getElementsByTagName("ds:artifact");
+        var typeNameNoSpaces;
+        var cont = 0;
         for (const subreq in dataJson.requisitos.trazabilidad.subrequisitos) {
-            if(subreq.origen===""){ //Caso sin origen
-
-            }else if (subreq.destino===""){ //Caso sin destino
-
+            if(subreq.origen===""){ //Caso sin origen, todos los artefactos del tipo tienen que tener un link
+                typeNameNoSpaces = encodeURIComponent(subreq.destino);
+                const doc = await fetchDoors(URL_SERVER + "resources?projectURI=" + projectUri + "&typeName=" + typeNameNoSpaces);
+                var artifacts = doc.getElementsByTagName('ds:artifact');
+                for (let i = 0; i < artifacts.length; i++) {
+                    var links = artifacts[i].getElementsByTagName('ds:links');
+                    var linkType = links[0].getElementsByTagName('rrm:title')
+                    if(linkType==='Link From'){
+                        hecho[dataJson.requisitos.trazabilidad.id][cont] = 1;
+                    }
+                }
+            }else if (subreq.destino===""){ //Caso sin destino,  todos los artefactos del tipo apuntan un artefacto de otro tipo. Este segundo artefacto debe estar en alguna de las carpetas previamente definidas"
+                typeNameNoSpaces = encodeURIComponent(subreq.origen);
+                const doc = await fetchDoors(URL_SERVER + "resources?projectURI=" + projectUri + "&typeName=" + typeNameNoSpaces);
+                var artifacts = doc.getElementsByTagName('ds:artifact');
+                for (let i = 0; i < artifacts.length; i++) {
+                    var links = artifacts[i].getElementsByTagName('ds:links');
+                    var linkType = links[0].getElementsByTagName('rrm:title');
+                    var idArtifactDestino = links[0].getElementsByTagName('rrm:identifier');
+                    for (var i=0; i< artifactsInFolder.length; i++){
+                        for (var j=0; j<artifactsInFolder[i].length; j++){
+                            var idArtifactInFolder = artifactsInFolder[i][j].getElementsByTagName('rrm:identifier');
+                            if (idArtifactDestino[0].textContent === idArtifactInFolder[0].textContent && linkType==='Link To'){
+                                hecho[dataJson.requisitos.trazabilidad.id][cont] = 1;
+                            }
+                        }
+                    }
+                }
             }else{ //Caso con origen y destino
-
+                typeNameNoSpaces = encodeURIComponent(subreq.origen);
+                const doc = await fetchDoors(URL_SERVER + "resources?projectURI=" + projectUri + "&typeName=" + typeNameNoSpaces);
+                var artifacts = doc.getElementsByTagName('ds:artifact');
+                for (let i = 0; i < artifacts.length; i++) {
+                    var links = artifacts[i].getElementsByTagName('ds:links');
+                    var linkType = links[0].getElementsByTagName('rrm:title');
+                    var typeArtifactDestino = links[0].getElementsByTagName('ds:artifactFormat');
+                    if(typeArtifactDestino.textContent === subreq.destino && linkType === 'Link To'){
+                        hecho[dataJson.requisitos.trazabilidad.id][cont] = 1;
+                    }
+                }
             }
+            cont++;
         }
 
 

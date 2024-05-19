@@ -129,7 +129,7 @@ async function checkReqs() {
         var artifactsOfType = await checkType();
         checkOrganization(artifactsInFolder, artifactsOfType);
         await checkModules();
-        await checkLinks();
+        await checkLinks(artifactsInFolder);
         await checkOptions();
         await checkViews();
     } catch (error) {
