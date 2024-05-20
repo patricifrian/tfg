@@ -12,8 +12,8 @@ var username = null;
 var password = null;
 var projectUri = null;
 */
-var username = "pcifrian"; //Añadir username
-var password = "holahola23"; //Añadir contraseña
+var username = ""; //Añadir username
+var password = ""; //Añadir contraseña
 var projectUri = "_mk9L8VleEe6YK5bcBzmhXg";
 var hecho = [];
 
