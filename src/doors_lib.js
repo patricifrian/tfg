@@ -12,8 +12,8 @@ var username = null;
 var password = null;
 var projectUri = null;
 */
-var username = "pcifrian";
-var password = "holahola23";
+var username = "pcifrian"; //Añadir username
+var password = "holahola23"; //Añadir contraseña
 var projectUri = "_mk9L8VleEe6YK5bcBzmhXg";
 var hecho = [];
 
@@ -273,66 +273,136 @@ async function checkLinks(artifactsInFolder) {
                 typeNameNoSpaces = encodeURIComponent(subreq.destino);
                 const doc = await fetchDoors(URL_SERVER + "resources?projectURI=" + projectUri + "&typeName=" + typeNameNoSpaces);
                 var artifacts = doc.getElementsByTagName('ds:artifact');
-                for (let i = 0; i < artifacts.length; i++) {
-                    var links = artifacts[i].getElementsByTagName('ds:links');
-                    var linkType = links[0].getElementsByTagName('rrm:title')
-                    if(linkType==='Link From'){
-                        hecho[dataJson.requisitos.trazabilidad.id][cont] = 1;
+                if(subreq.tag==="unico" && artifacts.length>1){
+                    // Si solo puede haber un unico enlace y hay más, hecho no varía
+                }
+                else{
+                    for (let i = 0; i < artifacts.length; i++) {
+                        var links = artifacts[i].getElementsByTagName('ds:links');
+                        var aux=0;
+                        for (let j=0; j<links.length; j++){
+                            var linkType = links[j].getElementsByTagName('rrm:title')
+                            if(linkType==='Link From'){
+                                aux++;
+                            }
+                        } 
+                        if (aux = links.length){
+                            hecho[dataJson.requisitos.trazabilidad.id][cont] = 1;
+                        }                       
                     }
                 }
             }else if (subreq.destino===""){ //Caso sin destino,  todos los artefactos del tipo apuntan un artefacto de otro tipo. Este segundo artefacto debe estar en alguna de las carpetas previamente definidas"
-                typeNameNoSpaces = encodeURIComponent(subreq.origen);
-                const doc = await fetchDoors(URL_SERVER + "resources?projectURI=" + projectUri + "&typeName=" + typeNameNoSpaces);
-                var artifacts = doc.getElementsByTagName('ds:artifact');
-                for (let i = 0; i < artifacts.length; i++) {
-                    var links = artifacts[i].getElementsByTagName('ds:links');
-                    var linkType = links[0].getElementsByTagName('rrm:title');
-                    var idArtifactDestino = links[0].getElementsByTagName('rrm:identifier');
-                    for (var i=0; i< artifactsInFolder.length; i++){
-                        for (var j=0; j<artifactsInFolder[i].length; j++){
-                            var idArtifactInFolder = artifactsInFolder[i][j].getElementsByTagName('rrm:identifier');
-                            if (idArtifactDestino[0].textContent === idArtifactInFolder[0].textContent && linkType==='Link To'){
-                                hecho[dataJson.requisitos.trazabilidad.id][cont] = 1;
+                //Caso con varios origenes
+                if (typeof subreq.origen === 'object') {
+                    for (const origen in subreq.origen){
+                        typeNameNoSpaces = encodeURIComponent(origen);
+                        const doc = await fetchDoors(URL_SERVER + "resources?projectURI=" + projectUri + "&typeName=" + typeNameNoSpaces);
+                        var artifacts = doc.getElementsByTagName('ds:artifact');
+                        if(subreq.tag==="unico" && artifacts.length>1){
+                        // Si solo puede haber un unico enlace y hay más, hecho no varía
+                        }else{
+                            for (let l = 0; l < artifacts.length; l++) {
+                                var links = artifacts[l].getElementsByTagName('ds:links');
+                                var aux =0;
+                                for (let k=0; k<links.length; k++){
+                                    var linkType = links[k].getElementsByTagName('rrm:title');
+                                    var idArtifactDestino = links[k].getElementsByTagName('rrm:identifier');
+                                    for (var i=0; i< artifactsInFolder.length; i++){
+                                        for (var j=0; j<artifactsInFolder[i].length; j++){
+                                            var idArtifactInFolder = artifactsInFolder[i][j].getElementsByTagName('rrm:identifier');
+                                            if (idArtifactDestino[0].textContent === idArtifactInFolder[0].textContent && linkType==='Link To'){
+                                                aux++;
+                                            }
+                                        }
+                                    }                            
+                                }
                             }
+                            if (aux === links.length){
+                                hecho[dataJson.requisitos.trazabilidad.id][cont] = 1;
+                            }                        
+                        }   
+                    }
+                }else{
+                    // Caso Normal
+                    typeNameNoSpaces = encodeURIComponent(subreq.origen);
+                    const doc = await fetchDoors(URL_SERVER + "resources?projectURI=" + projectUri + "&typeName=" + typeNameNoSpaces);
+                    var artifacts = doc.getElementsByTagName('ds:artifact');
+                    if(subreq.tag==="unico" && artifacts.length>1){
+                        // Si solo puede haber un unico enlace y hay más, hecho no varía
+                    }else{
+                        for (let l = 0; l < artifacts.length; l++) {
+                            var links = artifacts[l].getElementsByTagName('ds:links');
+                            var aux =0;
+                            for (let k=0; k<links.length; k++){
+                                var linkType = links[k].getElementsByTagName('rrm:title');
+                                var idArtifactDestino = links[k].getElementsByTagName('rrm:identifier');
+                                for (var i=0; i< artifactsInFolder.length; i++){
+                                    for (var j=0; j<artifactsInFolder[i].length; j++){
+                                        var idArtifactInFolder = artifactsInFolder[i][j].getElementsByTagName('rrm:identifier');
+                                        if (idArtifactDestino[0].textContent === idArtifactInFolder[0].textContent && linkType==='Link To'){
+                                            aux++;
+                                        }
+                                    }
+                                }                            
+                            }
+                            if (aux === links.length){
+                                hecho[dataJson.requisitos.trazabilidad.id][cont] = 1;
+                            }                        
                         }
                     }
                 }
             }else{ //Caso con origen y destino
-                typeNameNoSpaces = encodeURIComponent(subreq.origen);
-                const doc = await fetchDoors(URL_SERVER + "resources?projectURI=" + projectUri + "&typeName=" + typeNameNoSpaces);
-                var artifacts = doc.getElementsByTagName('ds:artifact');
-                for (let i = 0; i < artifacts.length; i++) {
-                    var links = artifacts[i].getElementsByTagName('ds:links');
-                    var linkType = links[0].getElementsByTagName('rrm:title');
-                    var typeArtifactDestino = links[0].getElementsByTagName('ds:artifactFormat');
-                    if(typeArtifactDestino.textContent === subreq.destino && linkType === 'Link To'){
-                        hecho[dataJson.requisitos.trazabilidad.id][cont] = 1;
+                //Caso con varios origenes
+                if (typeof subreq.origen === 'object') {
+                    for (const origen in subreq.origen){
+                        typeNameNoSpaces = encodeURIComponent(origen);
+                        const doc = await fetchDoors(URL_SERVER + "resources?projectURI=" + projectUri + "&typeName=" + typeNameNoSpaces);
+                        var artifacts = doc.getElementsByTagName('ds:artifact');
+                        if(subreq.tag==="unico" && artifacts.length>1){
+                            // Si solo puede haber un unico enlace y hay más, hecho no varía
+                        }else{
+                            for (let i = 0; i < artifacts.length; i++) {
+                                var links = artifacts[i].getElementsByTagName('ds:links');
+                                var aux = 0;
+                                for (let j=0; j<links.length; j++){
+                                    var linkType = links[j].getElementsByTagName('rrm:title');
+                                    var typeArtifactDestino = links[0].getElementsByTagName('ds:artifactFormat');
+                                    if(typeArtifactDestino.textContent === subreq.destino && linkType === 'Link To'){
+                                        aux++;
+                                    }
+                                }
+                                if(aux === links.length){
+                                    hecho[dataJson.requisitos.trazabilidad.id][cont] = 1;
+                                }
+                            }
+                        }
+                    }
+                }else{
+                    //Caso normal
+                    typeNameNoSpaces = encodeURIComponent(subreq.origen);
+                    const doc = await fetchDoors(URL_SERVER + "resources?projectURI=" + projectUri + "&typeName=" + typeNameNoSpaces);
+                    var artifacts = doc.getElementsByTagName('ds:artifact');
+                    if(subreq.tag==="unico" && artifacts.length>1){
+                        // Si solo puede haber un unico enlace y hay más, hecho no varía
+                    }else{
+                        for (let i = 0; i < artifacts.length; i++) {
+                            var links = artifacts[i].getElementsByTagName('ds:links');
+                            var aux = 0;
+                            for (let j=0; j<links.length; j++){
+                                var linkType = links[j].getElementsByTagName('rrm:title');
+                                var typeArtifactDestino = links[0].getElementsByTagName('ds:artifactFormat');
+                                if(typeArtifactDestino.textContent === subreq.destino && linkType === 'Link To'){
+                                    aux++;
+                                }
+                            }
+                            if(aux === links.length){
+                                hecho[dataJson.requisitos.trazabilidad.id][cont] = 1;
+                            }   
+                        }
                     }
                 }
             }
             cont++;
-        }
-
-
-
-
-        for (let i = 0; i < artifacts.length; i++) {
-            //Buscar links que apunten al artefacto artifact
-            const links = artifacts[i].getElementsByTagName('link');
-            for (let j = 0; j < links.length; j++) {
-                if (links[j].querySelector('originArtifact').textContent === artifact) {
-                    hecho[dataJson.requisitos.trazabilidad.id][i] = 1;
-                }
-            }
-        }
-        for (let i = 0; i < artifacts.length; i++) {
-            //Buscar links que apunten al artefacto artifact
-            const links = artifacts[i].getElementsByTagName('link');
-            for (let j = 0; j < links.length; j++) {
-                if (links[j].querySelector('targetArtifact').textContent === artifact) {
-                    hecho[dataJson.requisitos.trazabilidad.id][i] = 1;
-                }
-            }
         }
     } catch (error) {
         throw new Error('Error al verificar la trazabilidad: ', error);

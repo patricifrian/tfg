@@ -214,55 +214,64 @@
               "origen2": "Customer Need",
               "origen3": "Feature"
             },
-            "destino": "Interview Report"
+            "destino": "Interview Report",
+            "tag": ""
           },
           "subreq2": {
             "nombre": "Todos los artefactos de tipo Interview Report son apuntados por al menos un artefacto",
             "peso": 0.11111,
             "origen": "",
-            "destino": "Interview Report"
+            "destino": "Interview Report",
+            "tag": ""
           },
           "subreq3": {
             "nombre": "Todos los artefactos de tipo Use Case apuntan a un artefacto de tipo Feature",
             "peso": 0.11111,
             "origen": "Use Case",
-            "destino": "Feature"
+            "destino": "Feature",
+            "tag": ""
           },
           "subreq4": {
             "nombre": "Todos los artefactos de tipo Functional Requirement apuntan a un artefacto de tipo Use Case",
             "peso": 0.11111,
             "origen": "Functional Requirement",
-            "destino": "Use Case"
+            "destino": "Use Case",
+            "tag": ""
           },
           "subreq5": {
             "nombre": "Todos los artefactos de tipo Business Rule apuntan un artefacto de otro tipo. Este segundo artefacto debe estar en alguna de las carpetas previamente definidas",
             "peso": 0.11111,
             "origen": "Business Rule",
-            "destino": ""
+            "destino": "",
+            "tag": ""
           },
           "subreq6": {
             "nombre": "Todos los artefactos de tipo Scenario Evaluation apuntan unicamente a un artefacto de tipo Use Case",
             "peso": 0.11111,
             "origen": "Scenario Evaluation",
-            "destino": "Use Case"
+            "destino": "Use Case",
+            "tag": "unico"
           },
           "subreq7": {
             "nombre": "Todos los artefactos de tipo Use Case apuntan al menos un artefacto de tipo Scenario Evaluation",
             "peso": 0.11111,
             "origen": "Use Case",
-            "destino": "Scenario Evaluation"
+            "destino": "Scenario Evaluation",
+            "tag": ""
           },
           "subreq8": {
             "nombre": "Todos los artefactos de tipo Scenario Evaluation apuntan al menos a un artefacto de tipo Wireframe",
             "peso": 0.11111,
             "origen": "Scenario Evaluation",
-            "destino": "Wireframe"
+            "destino": "Wireframe",
+            "tag": ""
           },
           "subreq9": {
             "nombre": "Todos los artefactos de tipo Wireframe apuntan al menos a un artefacto de tipo Scenario Evaluation",
             "peso": 0.11111,
             "origen": "Wireframe",
-            "destino": "Scenario Evaluation"
+            "destino": "Scenario Evaluation",
+            "tag": ""
           }
         }
       },
