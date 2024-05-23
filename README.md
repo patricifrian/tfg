@@ -19,8 +19,7 @@ El proyecto se ha desarrollado utilizando las siguientes tecnologías:
 #### Estructura del Proyecto
 El proyecto está organizado en los siguientes archivos y carpetas:
 - **Prototipos**: En esta carpeta se encuentran el diseño de alto nivel realizado previamente a la implementación de la herramienta.
-- **src**: Implementación de la herramienta:
-      - **`server.js`**: Archivo principal que contiene el código para el servidor HTTP que sirve la aplicación.
+- **Implementación de la herramienta**:
       - **`main.js`**: Archivo que contiene la lógica del cliente, incluyendo la interacción con la API de IBM DOORS a través de `doors_lib.js` y el manejo de eventos en la interfaz de usuario.
       - **`doors_lib.js`**: Biblioteca que encapsula las funciones para interactuar con IBM Doors Next Generation. Entre sus funciones están la autenticación en IBM Doors Next Generation, la obtención de datos y la verificación de requisitos.
       - **`index.html`**: Archivo HTML que define la estructura de la página web y contiene la interfaz de usuario.
