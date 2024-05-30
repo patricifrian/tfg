@@ -7,6 +7,7 @@
 // Constantes y variables de autenticación de IBM DOORS
 const URL_SERVER = "https://jazz.net/sandbox01-rm/publish/";
 const CONFIG_CONTEXT = "https://jazz.net/sandbox01-rm/cm/stream/_m2V24FleEe6YK5bcBzmhXg";
+const URL_PROXY  = "https://cors-anywhere.herokuapp.com";
 /*
 var username = null;
 var password = null;
@@ -63,7 +64,7 @@ async function jsonToObject(jsonfile) {
 //Devuelve un DOM con el XML parseado
 async function fetchDoors(url) {
     try {
-        const response = await fetch(url, {
+        const response = await fetch(`${URL_PROXY}?target=${url}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -99,7 +100,7 @@ function updateResultMessage(message) {
 }
 
 //Verifica existencia de las carpetas con el nombre indicado en calificaciones.json
-//Devuelve un array con los artefactos encontrados
+//Devuelve una matriz con los artefactos encontrados en cada carpeta
 async function checkFolders() {
     try {
         const doc = await fetchDoors(URL_SERVER + "resources?projectURI=" + projectUri);
