@@ -18,18 +18,22 @@ El proyecto se ha desarrollado utilizando las siguientes tecnologías:
 
 #### Estructura del Proyecto
 El proyecto está organizado en los siguientes archivos y carpetas:
-- **Prototipos**: En esta carpeta se encuentran el diseño de alto nivel realizado previamente a la implementación de la herramienta.
-- **Implementación de la herramienta**:
-      - **`main.js`**: Archivo que contiene la lógica del cliente, incluyendo la interacción con la API de IBM DOORS a través de `doors_lib.js` y el manejo de eventos en la interfaz de usuario.
-      - **`doors_lib.js`**: Biblioteca que encapsula las funciones para interactuar con IBM Doors Next Generation. Entre sus funciones están la autenticación en IBM Doors Next Generation, la obtención de datos y la verificación de requisitos.
-      - **`index.html`**: Archivo HTML que define la estructura de la página web y contiene la interfaz de usuario.
-      - **`styles.css`**: Archivo CSS que proporciona estilos para la interfaz de usuario.
-      - **`calificaciones.json`**: Archivo JSON que define los requisitos que se deben cumplir y sus pesos correspondientes en la calificación.
+- **Prototipos**: En esta carpeta se encuentra el diseño de alto nivel realizado previamente a la implementación de la herramienta.
+- **Implementación de la herramienta**:  
+  - **`index.html`**: Archivo que provee la pantalla principal de la interfaz de usuario de la herramienta
+  - **`main.js`**: Archivo que aporta la funcionalidad necesaria a `index.html`.
+  - **`ayuda1.html`**: Pantalla de ayuda asociada a la pantalla principal.
+  - **`results.html`**: Pantalla de resultados.
+  - **`results.js`**: Archivo que aporta la funcionalidad necesaria a `results.html`.
+  - **`calificaciones.json`**: Archivo JSON que define los requisitos que se deben cumplir y sus pesos correspondientes en la calificación.
+  - **`doors_lib.js`**: Biblioteca que encapsula las funciones para interactuar con IBM Doors Next Generation. Entre sus funciones están la autenticación en IBM Doors Next Generation, la obtención de datos y la verificación de requisitos.
+  - **`ayuda2.html`**: Pantalla de ayuda asociada a la pantalla de resultados.
+  - **`ayuda2.js`**: Archivo que aporta la funcionalidad necesaria a `ayuda2.html`.
+  - **`styles.css`**: Archivo CSS que proporciona estilos para la interfaz de usuario.
 
 ## Instalación y Uso
-1. Clona o descarga el repositorio del proyecto desde GitHub.
-2. Instala las dependencias del proyecto ejecutando `npm install` en la terminal.
-3. Accede a la aplicación a través del navegador web utilizando la dirección y el puerto configurados.
+1. Accede a https://cors-anywhere.herokuapp.com/corsdemo y activa la demo temporal.
+2. Accede a la aplicación a través de https://patricifrian.github.io/tfg/.
 
 ## Autor
 
