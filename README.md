@@ -1,6 +1,6 @@
 # Verificador de Proyectos IBM Doors
 ## Introducción
-Verificador de Proyectos IBM Doors es una aplicación web diseñada para analizar proyectos alojados en IBM Doors Next Generationy proporcionar feedback sobre si cumplen con ciertos requisitos predefinidos. El objetivo principal es evaluar la organización y contenido de los proyectos, brindando información detallada sobre la calidad y completitud de los mismos.
+Verificador de Proyectos IBM Doors es una aplicación web diseñada para analizar proyectos alojados en IBM Doors Next Generation y proporcionar feedback sobre si cumplen con ciertos requisitos predefinidos. El objetivo principal es evaluar la organización y contenido de los proyectos, brindando información detallada sobre la calidad y completitud de los mismos.
 
 ## Funcionalidades Principales
 1. **Autenticación con IBM Doors Next Generation**: Los usuarios pueden iniciar sesión con sus credenciales de IBM DOORS para acceder a los proyectos que desean analizar.
